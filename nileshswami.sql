@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2024 at 02:49 PM
+-- Generation Time: Jan 26, 2024 at 04:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,15 +56,6 @@ CREATE TABLE `recipe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `recipe`
---
-
-INSERT INTO `recipe` (`recipe_id`, `recipe_name`, `category_id`, `range_from`, `range_to`) VALUES
-(1, 'Recipe1', 1, 100, 200),
-(2, 'Recipe2', 1, 100, 200),
-(3, 'Recipe3', 1, 100, 200);
-
---
 -- Indexes for dumped tables
 --
 
@@ -96,7 +87,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `recipe`
 --
 ALTER TABLE `recipe`
-  MODIFY `recipe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `recipe_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
