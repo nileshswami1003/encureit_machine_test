@@ -6,16 +6,26 @@ $(document).ready(function() {
     // Intercept the form submission
     $('#recipeForm').submit(function(e) {
         e.preventDefault();
+        // Get the input value
+        var inputValue = $(".rangeInput").val();
+        // Validate the input
+        var isValid = validateRange(inputValue);
+        // If the input is not valid, display an error message
+        if (!isValid) {
+            $("#error-message").text("Please enter only digits.");
+        }
+        else {
+            $("#error-message").text("");
+            // Get form data
+            var formData = {
+                name: $('#name').val(),
+                category: $('#category').val(),
+                rangeFrom: $("#rangeFrom").val(),
+                rangeTo: $("#rangeTo").val()
+            };
 
-        // Get form data
-        var formData = {
-            name: $('#name').val(),
-            category: $('#category').val(),
-            rangeFrom: $("#rangeFrom").val(),
-            rangeTo: $("#rangeTo").val()
-        };
-
-        addRecipeData(formData);
+            addRecipeData(formData);
+        }
     });
 
     function loadCategoryData(){
@@ -77,6 +87,14 @@ $(document).ready(function() {
                 $('#recipeTable tbody').empty();
                 $('#recipeForm')[0].reset();
                 loadRecipeData();
+                if(response["status"]=="success"){
+                    console.log(response["status"]);
+                    alert(response["message"]);
+                }
+                else if(response["status"]=="error"){
+                    console.log(response["status"]);
+                    alert(response["message"]);
+                }
             },
             error: function(error) {
                 // Handle the error response here

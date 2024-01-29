@@ -12,6 +12,9 @@
         .table-col-size{
             width:25%;
         }
+        .error-message {
+            color: red; /* Change this color to your desired color */
+        }
     </style>
 </head>
 <body>
@@ -32,16 +35,18 @@
                     <div class="form-group">
                         <label>Category</label>
                         <select name="category" class="form-control" id="category">
-                            
+                            <!-- options -->
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Range From</label>
-                        <input type="text" class="form-control" id="rangeFrom" name="name">
+                        <input type="text" class="form-control rangeInput" id="rangeFrom" name="rangeFrom">
+                        <small class="error-message" id="error-message"></small>
                     </div>
                     <div class="form-group">
                         <label>Range To</label>
-                        <input type="text" class="form-control" id="rangeTo" name="name">
+                        <input type="text" class="form-control rangeInput" id="rangeTo" name="rangeTo">
+                        <small class="error-message" id="error-message"></small>
                     </div>
                     <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary float-right">Add Recipe</button>
                 </form>
@@ -83,6 +88,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 <script src="script.js"></script>
 <script>
+
+
+    // Function to validate digits
+    function validateRange(inputValue) {
+        var regex = /^\d+$/; // Regular expression for digits only
+        return regex.test(inputValue);
+    }
 
     function downloadCSV() {
         var table = document.getElementById("recipeTable");

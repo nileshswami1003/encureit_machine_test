@@ -72,9 +72,16 @@ if(isset($_POST["name"]) && isset($_POST["category"]) && isset($_POST["rangeFrom
                 }
             }
         }
-        else{
+        else if($exCategory == $category){
             //if same category
             //abort
+            $response = array();
+            $response["status"] = "error";
+            $response["message"] = "Recipe already exists";
+            echo json_encode($response);
+            $connection->close();
+        }
+        else{
             $response = array();
             $response["status"] = "error";
             $response["message"] = "Recipe already exists";
@@ -84,18 +91,27 @@ if(isset($_POST["name"]) && isset($_POST["category"]) && isset($_POST["rangeFrom
     }
     else{
         //new entry
-        $sql = "INSERT INTO recipe (recipe_name, category_id, range_from, range_to) VALUES('$name','$category','$rangeFrom','$rangeTo')";
-        $response = array();
-        if($connection->query($sql)===TRUE){
-            $response["status"] = "success";
-            $response["message"] = "Record added successfully";
+        if($rangeTo > $rangeFrom){
+            $sql = "INSERT INTO recipe (recipe_name, category_id, range_from, range_to) VALUES('$name','$category','$rangeFrom','$rangeTo')";
+            
+            if($connection->query($sql)===TRUE){
+                $response["status"] = "success";
+                $response["message"] = "Record added successfully";
+            }
+            else{
+                $response["status"] = "error";
+                $response["message"] = "Failed";
+            }
+            echo json_encode($response);
+            $connection->close();
         }
         else{
+            $response = array();
             $response["status"] = "error";
-            $response["message"] = "Failed";
+            $response["message"] = "Please enter valid range";
+            echo json_encode($response);
+            $connection->close();
         }
-        echo json_encode($response);
-        $connection->close();
     }
 }
 
